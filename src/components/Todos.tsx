@@ -6,18 +6,24 @@ import { Checkbox } from './form/Checkbox';
 import { TextField } from './form/TextField';
 
 const StyledList = styled.ul`
+  display: table;
   margin: 0;
   padding: 0;
 `;
 
 const StyledListItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: .5rem;
+  display: table-row;
+`;
+
+const StyledListContent = styled.div`
+  display: table-cell;
+  vertical-align: middle;
+  padding: .2rem;
 `;
 
 const StyledButton = styled.button`
   user-select: none;
+  cursor: pointer;
 
   padding: .35rem 1.25rem;
   border: LightGrey;
@@ -64,11 +70,13 @@ export const Todos = () => {
         <StyledList>
           {todos.map((todo) => (
             <StyledListItem key={todo.id}>
-              <span className="description">{todo.description}</span>
-              <span className="status">
+              <StyledListContent>{todo.description}</StyledListContent>
+              <StyledListContent>
                 <Checkbox id={todo.id} aria-label="Done" value={todo.done} onChange={() => handleChange(todo.id)} />
-              </span>
-              <StyledButton type="button" onClick={() => handleRemove(todo.id)}>Remove</StyledButton>
+              </StyledListContent>
+              <StyledListContent>
+                <StyledButton type="button" onClick={() => handleRemove(todo.id)}>Remove</StyledButton>
+              </StyledListContent>
             </StyledListItem>
           ))}
         </StyledList>
