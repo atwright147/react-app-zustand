@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-  label: string,
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange' | 'id'> {
+  id: string,
+  label?: string,
   onChange: (value: any) => void,
   value: boolean,
 }
@@ -49,7 +50,7 @@ const StyledLabel = styled.label`
   .checkmark::after {
     content: "";
     display: none;
-    margin-top: .05em;
+    margin-top: -.05em;
   }
 
   & input:checked ~ .checkmark:after {
@@ -68,12 +69,11 @@ const StyledLabel = styled.label`
 type InputValue = React.InputHTMLAttributes<HTMLInputElement>['value'];
 type BooleanOrUndefined = boolean | undefined;
 const trueOrEmpty = (value: string | number | boolean): BooleanOrUndefined => value ? true : undefined;
-const stringToBool = (value: string): boolean => value === 'true' ? true : false;
 
 export const Checkbox = ({ label, onChange, value, ...props }: Props) => {
   const [_value, setValue] = useState(value);
 
-  const handleChange = () => {
+  const handleChange = (): void => {
     setValue(!_value);
     onChange(_value);
   }
@@ -82,7 +82,7 @@ export const Checkbox = ({ label, onChange, value, ...props }: Props) => {
     <StyledLabel>
       <input type="checkbox" value={trueOrEmpty(_value) as InputValue} checked={_value} onChange={handleChange} {...props} />
       <span className="checkmark"></span>
-      {label} ({JSON.stringify(_value)})
+      {label}
     </StyledLabel>
   );
 };
