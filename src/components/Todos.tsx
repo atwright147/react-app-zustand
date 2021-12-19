@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+
 import { useTodoStore } from '../stores/todos.store';
 import { Uuid } from '../types/uuid.type';
 import { Button } from './form/Button';
@@ -33,12 +36,20 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledForm = styled.form`
-  padding: 1rem 0;
-`;
+interface Values {
+  description: string,
+}
+
+const initialValues: Values = {
+  description: '',
+}
+
+const validationSchema = yup.object({
+  description: yup.string().min(3, 'Should be longer than 3 characters').required('Please enter a description')
+});
 
 export const Todos = () => {
-  const { todos, toggleDone, remove } = useTodoStore();
+  const { add, todos, toggleDone, remove } = useTodoStore();
 
   const handleChange = (id: Uuid): void => {
     toggleDone(id);
@@ -48,27 +59,25 @@ export const Todos = () => {
     remove(id);
   }
 
-  const handleSubmit = (event: React.SyntheticEvent): void => {
-    console.info(event);
-    event.preventDefault();
-    console.info('here');
-  }
-
-  const handleFieldChange = (event: any): void => {
-    console.info(event);
+  const handleSubmit = (values: any): void => {
+    add(values.description);
   }
 
   return (
     <>
-      <StyledForm onSubmit={handleSubmit} className="todo-form">
-        <TextField id="todo-description" label="Description" value="" onChange={handleFieldChange} />
-
-        <Button label="Add" style={{ marginTop: '.5rem' }} />
-      </StyledForm>
-
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <Field id="todo-description" name="description" component={TextField} />
+          <Button type="submit" label="Add" style={{ marginTop: '.5rem' }} />
+        </Form>
+      </Formik>
       <div className="todos-container">
         <StyledList>
-          {todos.map((todo) => (
+          {todos && todos.map((todo) => (
             <StyledListItem key={todo.id}>
               <StyledListContent>{todo.description}</StyledListContent>
               <StyledListContent>
@@ -79,9 +88,9 @@ export const Todos = () => {
               </StyledListContent>
             </StyledListItem>
           ))}
-        </StyledList>
 
-        <pre>{JSON.stringify(todos, null, 4)}</pre>
+          {!todos.length && <p>Yay! You have no todos to do&hellip;</p>}
+        </StyledList>
       </div>
     </>
   )

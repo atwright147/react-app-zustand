@@ -61,4 +61,4 @@ export const useTodoStore = create<State>(devtools((set, get) => ({
     //   return { todos };
     // });
   },
-})));
+}), { name: 'TodosStore' }));

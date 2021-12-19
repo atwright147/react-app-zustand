@@ -1,14 +1,15 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { Field, ErrorMessage } from 'formik';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'id'> {
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'id' | 'name'> {
   id: string,
+  name: string,
   label: string,
   onChange: (value: any) => void,
   value: string,
 }
 
-const StyledLabel = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
@@ -29,23 +30,13 @@ const StyledLabel = styled.div`
   }
 `;
 
-type InputValue = React.InputHTMLAttributes<HTMLInputElement>['value'];
-type BooleanOrUndefined = boolean | undefined;
-const trueOrEmpty = (value: string | number | boolean): BooleanOrUndefined => value ? true : undefined;
-const stringToBool = (value: string): boolean => value === 'true' ? true : false;
-
-export const TextField = ({ label, onChange, value, ...props }: Props) => {
-  const [_value, setValue] = useState(value);
-
-  const handleChange = () => {
-    setValue(_value);
-    onChange(_value);
-  }
-
+export const TextField = ({ ...props }) => {
+  console.info(props);
   return (
-    <StyledLabel>
-      <input value={trueOrEmpty(_value) as InputValue} onChange={handleChange} {...props} />
-      <label htmlFor={props.id}>{label}</label>
-    </StyledLabel>
+    <StyledContainer>
+      <Field {...props} />
+      {/* <ErrorMessage name={props.name} /> */}
+      <label htmlFor={props.id}>{props.label}</label>
+    </StyledContainer>
   );
 };
