@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
 
 import { useTodoStore } from '../stores/todos.store';
