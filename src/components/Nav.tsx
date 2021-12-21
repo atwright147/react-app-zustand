@@ -6,7 +6,7 @@ const StyledNav = styled.nav`
   gap: .5rem;
 `;
 
-export const Nav = () => (
+export const Nav = (): JSX.Element => (
   <StyledNav>
     <Link to="/">Home</Link>
     <Link to="/todos">Todos</Link>

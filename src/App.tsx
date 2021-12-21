@@ -7,7 +7,7 @@ import { Toggles } from './components/Toggles';
 
 import './App.css';
 
-function App() {
+function App(): JSX.Element {
   return (
     <Router>
       <Nav />
