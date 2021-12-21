@@ -10,5 +10,6 @@ export const Nav = () => (
   <StyledNav>
     <Link to="/">Home</Link>
     <Link to="/todos">Todos</Link>
+    <Link to="/toggles">Toggles</Link>
   </StyledNav>
 );
