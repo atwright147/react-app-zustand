@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import { Field } from 'formik';
+import { ErrorMessage } from 'formik';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'id' | 'name'> {
-  id: string,
-  name: string,
-  label: string,
-  onChange: (value: any) => void,
-  value: string,
-}
+// TODO: figure out Formik Field props
+// interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'id' | 'name'> {
+//   id: string,
+//   val: string,
+//   name: string,
+//   label: string,
+//   handleOnChange: (value: any) => void,
+// }
 
 const StyledContainer = styled.div`
   display: flex;
@@ -30,12 +31,11 @@ const StyledContainer = styled.div`
   }
 `;
 
-export const TextField = ({ ...props }) => {
-  console.info(props);
+export const TextField = ({ ...props }): JSX.Element => {
   return (
-    <StyledContainer>
-      <Field {...props} />
-      {/* <ErrorMessage name={props.name} /> */}
+    <StyledContainer className={props.className}>
+      <input {...props.field} />
+      <ErrorMessage name={props.field.name} />
       <label htmlFor={props.id}>{props.label}</label>
     </StyledContainer>
   );

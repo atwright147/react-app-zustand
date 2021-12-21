@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
+import classnames from 'classnames';
 
 import { useTodoStore } from '../stores/todos.store';
 import { Uuid } from '../types/uuid.type';
@@ -8,6 +9,7 @@ import { Button } from './form/Button';
 import { Checkbox } from './form/Checkbox';
 import { TextField } from './form/TextField';
 
+//#region StyledComponents
 const StyledList = styled.ul`
   display: table;
   margin: 0;
@@ -16,6 +18,10 @@ const StyledList = styled.ul`
 
 const StyledListItem = styled.li`
   display: table-row;
+
+  .done {
+    text-decoration: line-through;
+  }
 `;
 
 const StyledListContent = styled.div`
@@ -35,6 +41,7 @@ const StyledButton = styled.button`
     box-shadow: 0 0 0 3px #2196F3;
   }
 `;
+//#endregion
 
 interface Values {
   description: string,
@@ -45,10 +52,10 @@ const initialValues: Values = {
 }
 
 const validationSchema = yup.object({
-  description: yup.string().min(3, 'Should be longer than 3 characters').required('Please enter a description')
+  description: yup.string().min(3, 'Should be longer than 3 characters').required('Please enter a description'),
 });
 
-export const Todos = () => {
+export const Todos = (): JSX.Element => {
   const { add, todos, toggleDone, remove } = useTodoStore();
 
   const handleChange = (id: Uuid): void => {
@@ -71,7 +78,7 @@ export const Todos = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <Field id="todo-description" name="description" component={TextField} />
+          <Field id="description" name="description" component={TextField} />
           <Button type="submit" label="Add" style={{ marginTop: '.5rem' }} />
         </Form>
       </Formik>
@@ -79,9 +86,9 @@ export const Todos = () => {
         <StyledList>
           {todos && todos.map((todo) => (
             <StyledListItem key={todo.id}>
-              <StyledListContent>{todo.description}</StyledListContent>
+              <StyledListContent className={classnames({ done: todo.done })}>{todo.description}</StyledListContent>
               <StyledListContent>
-                <Checkbox id={todo.id} aria-label="Done" value={todo.done} onChange={() => handleChange(todo.id)} />
+                <Checkbox id={todo.id} aria-label="Done" checked={todo.done} value={todo.id} callback={() => handleChange(todo.id)} />
               </StyledListContent>
               <StyledListContent>
                 <StyledButton type="button" onClick={() => handleRemove(todo.id)}>Remove</StyledButton>

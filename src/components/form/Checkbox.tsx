@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange' | 'id'> {
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'id'> {
+  callback?: (value: any) => void,
   id: string,
   label?: string,
-  onChange: (value: any) => void,
-  value: boolean,
 }
 
 const StyledLabel = styled.label`
@@ -45,6 +44,7 @@ const StyledLabel = styled.label`
 
   & input:focus ~ .checkmark {
     box-shadow: 0 0 0 3px #2196F3;
+    z-index: 1;
   }
 
   .checkmark::after {
@@ -66,23 +66,21 @@ const StyledLabel = styled.label`
   }
 `;
 
-type InputValue = React.InputHTMLAttributes<HTMLInputElement>['value'];
-type BooleanOrUndefined = boolean | undefined;
-const trueOrEmpty = (value: string | number | boolean): BooleanOrUndefined => value ? true : undefined;
-
-export const Checkbox = ({ label, onChange, value, ...props }: Props) => {
-  const [_value, setValue] = useState(value);
+export const Checkbox = ({ callback, ...props }: Props): JSX.Element => {
+  console.info(props.checked, props.value);
+  const [state, setState] = useState(props.checked ? true : false);
+  delete props.checked;
 
   const handleChange = (): void => {
-    setValue(!_value);
-    onChange(_value);
+    setState(!state);
+    callback?.(state);
   }
 
   return (
-    <StyledLabel>
-      <input type="checkbox" value={trueOrEmpty(_value) as InputValue} checked={_value} onChange={handleChange} {...props} />
+    <StyledLabel className={props.className}>
+      <input type="checkbox" checked={state} onChange={handleChange} {...props} />
       <span className="checkmark"></span>
-      {label}
+      {props.label}
     </StyledLabel>
   );
 };
