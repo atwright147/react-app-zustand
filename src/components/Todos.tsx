@@ -78,7 +78,7 @@ export const Todos = (): JSX.Element => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <Field id="description" name="description" component={TextField} />
+          <Field label="Description" id="description" name="description" component={TextField} />
           <Button type="submit" label="Add" style={{ marginTop: '.5rem' }} />
         </Form>
       </Formik>
@@ -87,9 +87,11 @@ export const Todos = (): JSX.Element => {
           {todos && todos.map((todo) => (
             <StyledListItem key={todo.id}>
               <StyledListContent className={classnames({ done: todo.done })}>{todo.description}</StyledListContent>
+
               <StyledListContent>
                 <Checkbox id={todo.id} aria-label="Done" checked={todo.done} value={todo.id} callback={() => handleChange(todo.id)} />
               </StyledListContent>
+
               <StyledListContent>
                 <StyledButton type="button" onClick={() => handleRemove(todo.id)}>Remove</StyledButton>
               </StyledListContent>
