@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
   flex-direction: column-reverse;
   align-items: flex-start;
   gap: .5em;
+  margin: 15px 0;
 
   label {
     user-select: none;
