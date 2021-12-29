@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { ErrorMessage } from 'formik';
-import { FieldProps } from 'formik';
+import { ErrorMessage, FieldProps } from 'formik';
 import { ChangeEvent } from 'react';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & FieldProps<string, string> & {
@@ -31,8 +30,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-export const TextField = ({ id, label, callback, onChange, ...props }: Props): JSX.Element => {
+export const TextField = ({ id, label, callback, ...props }: Props): JSX.Element => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    props.field?.onChange(event);
     callback?.(event);
   }
 

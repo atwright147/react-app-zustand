@@ -1,11 +1,19 @@
-import { ChangeEvent, useState } from 'react';
+import { FieldProps } from 'formik';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'id'> {
-  callback?: (value: any) => void,
+// interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'id'> {
+//   callback?: (value: any) => void,
+//   id: string,
+//   label?: string,
+// }
+
+type Props = React.InputHTMLAttributes<HTMLInputElement> & FieldProps<string, string> & {
   id: string,
-  label?: string,
+  label: string,
+  callback?: (value: any) => void,
 }
+
 
 const StyledLabel = styled.label`
   display: flex;
@@ -30,8 +38,11 @@ const StyledLabel = styled.label`
     align-items: center;
     height: var(--size);
     width: var(--size);
-    background-color: #eee;
+    background-color: white;
     transition: box-shadow .5s;
+    border-radius: 50%;
+    border: 2px solid #bbb;
+    box-sizing: border-box;
   }
 
   &:hover input ~ .checkmark {
@@ -39,7 +50,7 @@ const StyledLabel = styled.label`
   }
 
   & input:checked ~ .checkmark {
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
   }
 
   & input:focus ~ .checkmark {
@@ -50,35 +61,36 @@ const StyledLabel = styled.label`
   .checkmark::after {
     content: "";
     display: none;
-    margin-top: -.05em;
+    background-color: red;
   }
 
   & input:checked ~ .checkmark:after {
     display: block;
+    background-color: red;
   }
 
   & .checkmark::after {
-    width: .25em;
-    height: .5em;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
+    --size: .8em;
+    width: var(--size);
+    height: var(--size);
+    background-color: red;
+    border-radius: 50%;
   }
 `;
 
-export const Checkbox = ({ callback, ...props }: Props): JSX.Element => {
+export const Radio = ({ callback, ...props }: Props): JSX.Element => {
+  console.info(props);
   const [state, setState] = useState(props.checked ? true : false);
   delete props.checked;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (): void => {
     setState(!state);
-    (props as any).field?.onChange(event);
     callback?.(state);
   }
 
   return (
     <StyledLabel className={props.className}>
-      <input type="checkbox" checked={state} onChange={handleChange} {...props} />
+      <input type="radio" checked={state} {...props.field} />
       <span className="checkmark"></span>
       {props.label}
     </StyledLabel>
