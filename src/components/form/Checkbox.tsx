@@ -18,7 +18,6 @@ const StyledLabel = styled.label`
   & input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
     height: 0;
     width: 0;
   }
@@ -49,20 +48,17 @@ const StyledLabel = styled.label`
 
   .checkmark::after {
     content: "";
+    border: solid white;
+    border-width: 0 3px 3px 0;
     display: none;
     margin-top: -.05em;
+    width: .25em;
+    height: .5em;
+    transform: rotate(45deg);
   }
 
   & input:checked ~ .checkmark:after {
     display: block;
-  }
-
-  & .checkmark::after {
-    width: .25em;
-    height: .5em;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
   }
 `;
 
