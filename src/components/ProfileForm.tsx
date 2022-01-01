@@ -1,15 +1,11 @@
-import styled from 'styled-components';
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
 
-import {
-  useProfileStore,
-  // initialState as initialValues
-} from '../stores/profile.store';
+import { useProfileStore } from '../stores/profile.store';
 import { Button } from './form/Button';
 import { Checkbox } from './form/Checkbox';
 import { Radio } from './form/Radio';
-import { TextField } from './form/TextField';
+import { FormikTextField } from './form/TextField';
 import { Profile } from '../types/profile.type';
 
 const validationSchema = yup.object({
@@ -26,16 +22,16 @@ const validationSchema = yup.object({
 });
 
 const initialValues: Profile = {
-  firstName: 'xxx',
-  lastName: 'xxx',
-  email: 'xxx',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email@example.com',
   gender: 'female',
   contactMethod: {
     email: false,
     post: true,
     sms: false,
   },
-  description: 'xxx',
+  description: 'description',
 };
 
 
@@ -54,9 +50,9 @@ export const ProfileForm = (): JSX.Element => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <Field label="First name" id="firstname" name="firstName" component={TextField} />
-          <Field label="Last name" id="lastname" name="lastName" component={TextField} />
-          <Field label="Email" id="email" name="email" component={TextField} />
+          <FormikTextField label="First name" id="firstname" name="firstName" />
+          <FormikTextField label="Last name" id="lastname" name="lastName" />
+          <FormikTextField label="Email" id="email" name="email" />
 
           <Field label="Male" id="gender-male" name="gender" component={Radio} value="male" />
           <Field label="Female" id="gender-female" name="gender" component={Radio} value="female" />
@@ -68,7 +64,7 @@ export const ProfileForm = (): JSX.Element => {
             <Field label="SMS" id="contactMethod.sms" name="contactMethod.sms" component={Checkbox} value="sms" />
           </fieldset>
 
-          <Field label="Description" id="description" name="description" component={TextField} />
+          <FormikTextField label="Description" id="description" name="description" />
 
           <Button type="submit" label="Save" style={{ marginTop: '.5rem' }} />
         </Form>

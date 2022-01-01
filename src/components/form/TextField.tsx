@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { ErrorMessage, FieldProps } from 'formik';
 import { ChangeEvent } from 'react';
+import styled from 'styled-components';
+import { ErrorMessage, FieldProps, useField } from 'formik';
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & FieldProps<string, string> & {
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> & {
   id: string,
   label: string,
-  callback: (value: any) => void,
+  name: string,
 }
 
 const StyledContainer = styled.div`
@@ -30,17 +30,42 @@ const StyledContainer = styled.div`
   }
 `;
 
-export const TextField = ({ id, label, callback, ...props }: Props): JSX.Element => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    props.field?.onChange(event);
-    callback?.(event);
-  }
+// export const TextField = ({ id, label, callback, ...props }: Props): JSX.Element => {
+//   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+//     props.field?.onChange(event);
+//     callback?.(event);
+//   }
 
+//   return (
+//     <StyledContainer className={props.className}>
+//       <ErrorMessage name={props.field.name} />
+//       <input id={id} {...props.field} onChange={handleChange} />
+//       <label htmlFor={id}>{label}</label>
+//     </StyledContainer>
+//   );
+// };
+
+export const TextField = ({ name, id, label, ...props }: Props): JSX.Element => {
   return (
     <StyledContainer className={props.className}>
-      <ErrorMessage name={props.field.name} />
-      <input id={id} {...props.field} onChange={handleChange} />
+      <input type="text" id={id} name={name} {...props} />
       <label htmlFor={id}>{label}</label>
     </StyledContainer>
   );
-};
+}
+
+export const FormikTextField = ({ name, id, label, ...props }: Props): JSX.Element => {
+  const [field, meta] = useField(name);
+
+  return (
+    <TextField
+      className={props.className}
+      label={label}
+      id={id}
+      // error={meta.error}
+      {...field}
+      {...props}
+    />
+  );
+}
+
