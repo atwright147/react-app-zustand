@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { useField } from 'formik';
 import styled from 'styled-components';
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'id'> {
-  callback?: (value: any) => void,
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string,
-  label?: string,
+  label: string,
+  name: string,
 }
 
 const StyledLabel = styled.label`
@@ -66,21 +66,24 @@ const StyledLabel = styled.label`
   }
 `;
 
-export const Checkbox = ({ callback, ...props }: Props): JSX.Element => {
-  const [state, setState] = useState(props.checked ? true : false);
-  delete props.checked;
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setState(!state);
-    (props as any).field?.onChange(event);
-    callback?.(state);
-  }
-
+export const Checkbox = ({ name, label, ...props }: Props): JSX.Element => {
   return (
     <StyledLabel className={props.className}>
-      <input type="checkbox" checked={state} onChange={handleChange} {...props} />
+      <input type="checkbox" {...props} />
       <span className="checkmark"></span>
-      {props.label}
+      {label}
     </StyledLabel>
   );
 };
+
+export const FormikCheckbox = ({ name, label, ...props }: Props): JSX.Element => {
+  const [field, meta] = useField({ name, type: 'checkbox' });
+
+  return (
+    <Checkbox
+      label={label}
+      {...field}
+      {...props}
+    />
+  );
+}

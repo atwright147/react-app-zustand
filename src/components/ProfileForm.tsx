@@ -3,7 +3,7 @@ import * as yup from 'yup';
 
 import { useProfileStore } from '../stores/profile.store';
 import { Button } from './form/Button';
-import { Checkbox } from './form/Checkbox';
+import { Checkbox, FormikCheckbox } from './form/Checkbox';
 import { Radio } from './form/Radio';
 import { FormikTextField } from './form/TextField';
 import { Profile } from '../types/profile.type';
@@ -59,9 +59,9 @@ export const ProfileForm = (): JSX.Element => {
 
           <fieldset>
             <legend>Contact Method</legend>
-            <Field label="Post" id="contactMethod.post" name="contactMethod.post" component={Checkbox} value="post" />
-            <Field label="Email" id="contactMethod.email" name="contactMethod.email" component={Checkbox} value="email" />
-            <Field label="SMS" id="contactMethod.sms" name="contactMethod.sms" component={Checkbox} value="sms" />
+            <FormikCheckbox label="Email" id="contactMethod.email" name="contactMethod.email" />
+            <FormikCheckbox label="Post" id="contactMethod.post" name="contactMethod.post" />
+            <FormikCheckbox label="SMS" id="contactMethod.sms" name="contactMethod.sms"/>
           </fieldset>
 
           <FormikTextField label="Description" id="description" name="description" />

@@ -1,8 +1,7 @@
-import { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { ErrorMessage, FieldProps, useField } from 'formik';
+import { useField } from 'formik';
 
-type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> & {
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string,
   label: string,
   name: string,
