@@ -1,6 +1,8 @@
+import { Heading } from './Heading';
+
 export const Home = () => (
   <div>
-    <h1>Home View</h1>
+    <Heading>Home View</Heading>
     <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
   </div>
 );

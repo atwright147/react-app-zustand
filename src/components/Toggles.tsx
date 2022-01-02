@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useTogglesStore } from '../stores/toggles.store';
 import { Checkbox } from './form/Checkbox';
+import { Heading } from './Heading';
 
 const StyledBoxContainer = styled.div`
   display: flex;
@@ -47,7 +48,8 @@ export const Toggles = (): JSX.Element => {
 
   return (
     <>
-      <h1>Toggles</h1>
+      <Heading>Toggles</Heading>
+
       <div className="toggles">
         {Object.keys(toggles).map((color, index) => (
           <CapsCheckbox

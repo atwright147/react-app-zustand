@@ -7,12 +7,23 @@ const StyledNav = styled.nav`
   margin-bottom: 1rem;
 `;
 
+const StyledNavLink = styled(NavLink)`
+  border-bottom: 5px solid transparent;
+  box-sizing: border-box;
+  padding: .35rem;
+  text-decoration: none;
+
+  &[aria-current="page"] {
+    border-bottom-color: #ccc;
+  }
+`;
+
 export const Nav = (): JSX.Element => (
   <StyledNav>
-    <NavLink to="/">Home</NavLink>
-    <NavLink to="/todos">Todos</NavLink>
-    <NavLink to="/toggles">Toggles</NavLink>
-    <NavLink to="/profile-form">Profile Form</NavLink>
-    <NavLink to="/basic-form">Basic Form</NavLink>
+    <StyledNavLink to="/">Home</StyledNavLink>
+    <StyledNavLink to="/todos">Todos</StyledNavLink>
+    <StyledNavLink to="/toggles">Toggles</StyledNavLink>
+    <StyledNavLink to="/profile-form">Profile Form</StyledNavLink>
+    <StyledNavLink to="/basic-form">Basic Form</StyledNavLink>
   </StyledNav>
 );

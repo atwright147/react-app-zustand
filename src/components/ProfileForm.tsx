@@ -9,6 +9,7 @@ import { FormikTextField } from './form/TextField';
 import { Profile } from '../types/profile.type';
 import { FormikTextarea } from './form/Textarea';
 import { Fieldset } from './form/Fieldset';
+import { Heading } from './Heading';
 
 const validationSchema = yup.object({
   firstName: yup.string().required('Please enter a first name'),
@@ -46,6 +47,8 @@ export const ProfileForm = (): JSX.Element => {
 
   return (
     <>
+      <Heading>Profile Form</Heading>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

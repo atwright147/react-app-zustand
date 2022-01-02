@@ -8,6 +8,7 @@ import { Uuid } from '../types/uuid.type';
 import { Button } from './form/Button';
 import { Checkbox } from './form/Checkbox';
 import { FormikTextField } from './form/TextField';
+import { Heading } from './Heading';
 
 //#region StyledComponents
 const StyledList = styled.ul`
@@ -72,6 +73,8 @@ export const Todos = (): JSX.Element => {
 
   return (
     <>
+      <Heading>Todos</Heading>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
