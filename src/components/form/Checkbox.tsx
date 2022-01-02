@@ -72,7 +72,7 @@ export const Checkbox = ({ name, label, ...props }: Props): JSX.Element => {
 };
 
 export const FormikCheckbox = ({ name, label, ...props }: Props): JSX.Element => {
-  const [field, meta] = useField({ name, type: 'checkbox', value: props.value });
+  const [field] = useField({ name, type: 'checkbox', value: props.value });
 
   return (
     <Checkbox

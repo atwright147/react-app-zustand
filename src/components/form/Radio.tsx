@@ -72,7 +72,7 @@ export const Radio = ({ name, label, ...props }: Props): JSX.Element => {
 
 export const FormikRadio = ({ name, label, ...props }: Props): JSX.Element => {
   // value required for radio type: https://github.com/final-form/react-final-form/issues/772
-  const [field, meta] = useField({ name, type: 'radio', value: props.value });
+  const [field] = useField({ name, type: 'radio', value: props.value });
 
   return (
     <Radio

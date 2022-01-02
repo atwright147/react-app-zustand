@@ -54,14 +54,13 @@ export const TextField = ({ name, id, label, ...props }: Props): JSX.Element => 
 }
 
 export const FormikTextField = ({ name, id, label, ...props }: Props): JSX.Element => {
-  const [field, meta] = useField(name);
+  const [field] = useField(name);
 
   return (
     <TextField
       className={props.className}
       label={label}
       id={id}
-      // error={meta.error}
       {...field}
       {...props}
     />
