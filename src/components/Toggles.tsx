@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTitle } from '../hooks/title';
 import { useTogglesStore } from '../stores/toggles.store';
 import { Checkbox } from './form/Checkbox';
 import { Heading } from './Heading';
@@ -43,6 +44,7 @@ const boxes = [
 
 export const Toggles = (): JSX.Element => {
   const { toggles, toggle } = useTogglesStore();
+  useTitle('Toggles');
 
   const handleChange = (color: string): void => toggle(color);
 

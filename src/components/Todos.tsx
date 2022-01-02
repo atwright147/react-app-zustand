@@ -9,6 +9,7 @@ import { Button } from './form/Button';
 import { Checkbox } from './form/Checkbox';
 import { FormikTextField } from './form/TextField';
 import { Heading } from './Heading';
+import { useTitle } from '../hooks/title';
 
 //#region StyledComponents
 const StyledList = styled.ul`
@@ -58,6 +59,7 @@ const validationSchema = yup.object({
 
 export const Todos = (): JSX.Element => {
   const { add, todos, toggleDone, remove } = useTodoStore();
+  useTitle('Todos');
 
   const handleChange = (id: Uuid): void => {
     toggleDone(id);

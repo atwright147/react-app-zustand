@@ -10,6 +10,7 @@ import { Profile } from '../types/profile.type';
 import { FormikTextarea } from './form/Textarea';
 import { Fieldset } from './form/Fieldset';
 import { Heading } from './Heading';
+import { useTitle } from '../hooks/title';
 
 const validationSchema = yup.object({
   firstName: yup.string().required('Please enter a first name'),
@@ -40,6 +41,7 @@ const initialValues: Profile = {
 
 export const ProfileForm = (): JSX.Element => {
   const { add, profile } = useProfileStore();
+  useTitle('Profile Form');
 
   const handleSubmit = (values: Profile): void => {
     add(values);

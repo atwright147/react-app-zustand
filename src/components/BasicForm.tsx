@@ -1,6 +1,7 @@
 import { Formik, Field, Form, ErrorMessage, FieldProps } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
+import { useTitle } from '../hooks/title';
 
 type Input2Props = React.InputHTMLAttributes<HTMLInputElement> & FieldProps<string, string> & {
   id: string,
@@ -38,6 +39,7 @@ const validationSchema = yup.object({
 
 export const BasicForm = (): JSX.Element => {
   const [formState, setFormState] = useState({});
+  useTitle('Basic Form');
 
   const handleSubmit = (values: any): void => {
     console.info(values);
