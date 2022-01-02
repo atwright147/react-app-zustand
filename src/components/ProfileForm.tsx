@@ -8,6 +8,7 @@ import { FormikRadio } from './form/Radio';
 import { FormikTextField } from './form/TextField';
 import { Profile } from '../types/profile.type';
 import { FormikTextarea } from './form/Textarea';
+import { Fieldset } from './form/Fieldset';
 
 const validationSchema = yup.object({
   firstName: yup.string().required('Please enter a first name'),
@@ -55,15 +56,18 @@ export const ProfileForm = (): JSX.Element => {
           <FormikTextField label="Last name" id="lastname" name="lastName" />
           <FormikTextField label="Email" id="email" name="email" />
 
-          <FormikRadio label="Male" name="gender" value="male" />
-          <FormikRadio label="Female" name="gender" value="female" />
+          <Fieldset>
+            <legend>Gender</legend>
+            <FormikRadio label="Male" name="gender" value="male" />
+            <FormikRadio label="Female" name="gender" value="female" />
+          </Fieldset>
 
-          <fieldset>
+          <Fieldset>
             <legend>Contact Method</legend>
             <FormikCheckbox label="Email" id="contactMethod.email" name="contactMethod.email" />
             <FormikCheckbox label="Post" id="contactMethod.post" name="contactMethod.post" />
             <FormikCheckbox label="SMS" id="contactMethod.sms" name="contactMethod.sms"/>
-          </fieldset>
+          </Fieldset>
 
           <FormikTextarea label="Description" id="description" name="description" />
 
