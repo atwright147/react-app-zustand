@@ -1,10 +1,10 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 
 import { useProfileStore } from '../stores/profile.store';
 import { Button } from './form/Button';
-import { Checkbox, FormikCheckbox } from './form/Checkbox';
-import { Radio } from './form/Radio';
+import { FormikCheckbox } from './form/Checkbox';
+import { FormikRadio } from './form/Radio';
 import { FormikTextField } from './form/TextField';
 import { Profile } from '../types/profile.type';
 
@@ -54,8 +54,8 @@ export const ProfileForm = (): JSX.Element => {
           <FormikTextField label="Last name" id="lastname" name="lastName" />
           <FormikTextField label="Email" id="email" name="email" />
 
-          <Field label="Male" id="gender-male" name="gender" component={Radio} value="male" />
-          <Field label="Female" id="gender-female" name="gender" component={Radio} value="female" />
+          <FormikRadio label="Male" name="gender" value="male" />
+          <FormikRadio label="Female" name="gender" value="female" />
 
           <fieldset>
             <legend>Contact Method</legend>
