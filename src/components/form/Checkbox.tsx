@@ -2,7 +2,6 @@ import { useField } from 'formik';
 import styled from 'styled-components';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
-  id: string,
   label: string,
   name: string,
 }
@@ -73,7 +72,7 @@ export const Checkbox = ({ name, label, ...props }: Props): JSX.Element => {
 };
 
 export const FormikCheckbox = ({ name, label, ...props }: Props): JSX.Element => {
-  const [field, meta] = useField({ name, type: 'checkbox' });
+  const [field, meta] = useField({ name, type: 'checkbox', value: props.value });
 
   return (
     <Checkbox

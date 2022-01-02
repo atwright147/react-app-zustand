@@ -1,19 +1,10 @@
-import { FieldProps } from 'formik';
-import { useState } from 'react';
+import { useField } from 'formik';
 import styled from 'styled-components';
 
-// interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'id'> {
-//   callback?: (value: any) => void,
-//   id: string,
-//   label?: string,
-// }
-
-type Props = React.InputHTMLAttributes<HTMLInputElement> & FieldProps<string, string> & {
-  id: string,
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string,
-  callback?: (value: any) => void,
+  name: string,
 }
-
 
 const StyledLabel = styled.label`
   display: flex;
@@ -26,7 +17,6 @@ const StyledLabel = styled.label`
   & input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
     height: 0;
     width: 0;
   }
@@ -38,11 +28,9 @@ const StyledLabel = styled.label`
     align-items: center;
     height: var(--size);
     width: var(--size);
-    background-color: white;
+    background-color: #eee;
     transition: box-shadow .5s;
     border-radius: 50%;
-    border: 2px solid #bbb;
-    box-sizing: border-box;
   }
 
   &:hover input ~ .checkmark {
@@ -50,7 +38,7 @@ const StyledLabel = styled.label`
   }
 
   & input:checked ~ .checkmark {
-    /* background-color: #2196F3; */
+    background-color: #2196F3;
   }
 
   & input:focus ~ .checkmark {
@@ -61,38 +49,36 @@ const StyledLabel = styled.label`
   .checkmark::after {
     content: "";
     display: none;
-    background-color: red;
+    width:  30%;
+    height: 30%;
+    background-color: white;
+    border-radius: 50%;
   }
 
   & input:checked ~ .checkmark:after {
     display: block;
-    background-color: red;
-  }
-
-  & .checkmark::after {
-    --size: .8em;
-    width: var(--size);
-    height: var(--size);
-    background-color: red;
-    border-radius: 50%;
   }
 `;
 
-export const Radio = ({ callback, ...props }: Props): JSX.Element => {
-  console.info(props);
-  const [state, setState] = useState(props.checked ? true : false);
-  delete props.checked;
-
-  const handleChange = (): void => {
-    setState(!state);
-    callback?.(state);
-  }
-
+export const Radio = ({ name, label, ...props }: Props): JSX.Element => {
   return (
     <StyledLabel className={props.className}>
-      <input type="radio" checked={state} {...props.field} />
+      <input type="radio" name={name} {...props} />
       <span className="checkmark"></span>
-      {props.label}
+      {label}
     </StyledLabel>
   );
 };
+
+export const FormikRadio = ({ name, label, ...props }: Props): JSX.Element => {
+  // value required for radio type: https://github.com/final-form/react-final-form/issues/772
+  const [field, meta] = useField({ name, type: 'radio', value: props.value });
+
+  return (
+    <Radio
+      label={label}
+      {...field}
+      {...props}
+    />
+  );
+}
