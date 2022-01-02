@@ -52,11 +52,12 @@ export const Toggles = (): JSX.Element => {
         {Object.keys(toggles).map((color, index) => (
           <CapsCheckbox
             key={index}
+            name={color}
             id={`${color}-${index}`}
             label={color}
             value={color}
             checked={toggles[color]}
-            callback={() => handleChange(color)}
+            onChange={() => handleChange(color)}
           />
         ))}
       </div>

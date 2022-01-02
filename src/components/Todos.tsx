@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import classnames from 'classnames';
 
@@ -7,7 +7,7 @@ import { useTodoStore } from '../stores/todos.store';
 import { Uuid } from '../types/uuid.type';
 import { Button } from './form/Button';
 import { Checkbox } from './form/Checkbox';
-import { TextField } from './form/TextField';
+import { FormikTextField } from './form/TextField';
 
 //#region StyledComponents
 const StyledList = styled.ul`
@@ -78,7 +78,7 @@ export const Todos = (): JSX.Element => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <Field label="Description" id="description" name="description" component={TextField} />
+          <FormikTextField label="Description" id="description" name="description" />
           <Button type="submit" label="Add" style={{ marginTop: '.5rem' }} />
         </Form>
       </Formik>
@@ -89,7 +89,7 @@ export const Todos = (): JSX.Element => {
               <StyledListContent className={classnames({ done: todo.done })}>{todo.description}</StyledListContent>
 
               <StyledListContent>
-                <Checkbox id={todo.id} aria-label="Done" checked={todo.done} value={todo.id} callback={() => handleChange(todo.id)} />
+                <Checkbox id={todo.id} aria-label="Done" checked={todo.done} value={todo.id} onChange={() => handleChange(todo.id)} name="" label="" />
               </StyledListContent>
 
               <StyledListContent>
