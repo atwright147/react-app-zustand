@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNav = styled.nav`
@@ -9,10 +9,10 @@ const StyledNav = styled.nav`
 
 export const Nav = (): JSX.Element => (
   <StyledNav>
-    <Link to="/">Home</Link>
-    <Link to="/todos">Todos</Link>
-    <Link to="/toggles">Toggles</Link>
-    <Link to="/profile-form">Profile Form</Link>
-    <Link to="/basic-form">Basic Form</Link>
+    <NavLink to="/">Home</NavLink>
+    <NavLink to="/todos">Todos</NavLink>
+    <NavLink to="/toggles">Toggles</NavLink>
+    <NavLink to="/profile-form">Profile Form</NavLink>
+    <NavLink to="/basic-form">Basic Form</NavLink>
   </StyledNav>
 );
